@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Bliss - Your Ultimate Travel Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #FDFDFB;
+            --bg-secondary: #F4F1E8;
+            --text-dark: #3A3F42;
+            --text-light: #6B6B6B;
+            --accent-primary: #FF6B6B;
+            --accent-secondary: #4ECDC4;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .nav-active {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        .hero-bg-container {
+            overflow: hidden;
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            animation: zoomEffect 15s ease-out forwards;
+        }
+        @keyframes zoomEffect {
+            from { transform: scale(1.15); }
+            to { transform: scale(1); }
+        }
+        .destination-card:hover img {
+            transform: scale(1.05);
+        }
+        .cta-btn {
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(255, 107, 107, 0.4);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal-active .modal-content {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .todo-item {
+            transition: background-color 0.2s ease;
+        }
+        .todo-item:hover {
+            background-color: #f8f9fa;
+        }
+        .todo-item span.completed {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+        .todo-delete-btn {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .todo-delete-btn:hover {
+            color: var(--accent-primary);
+        }
+        .weather-icon i {
+            font-size: 2.5rem;
+            color: var(--accent-secondary);
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <!-- Header -->
+    <header id="header" class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center py-4">
+                <a href="#home" class="text-3xl font-bold font-display text-slate-800">Explore Bliss</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link nav-active">Home</a>
+                    <a href="#destinations" class="nav-link text-slate-600 hover:text-red-500 transition-colors">Destinations</a>
+                    <a href="#testimonials" class="nav-link text-slate-600 hover:text-red-500 transition-colors">Testimonials</a>
+                    <a href="#planner" class="nav-link text-slate-600 hover:text-red-500 transition-colors">Planner</a>
+                    <a href="#contact" class="nav-link text-slate-600 hover:text-red-500 transition-colors">Contact</a>
+                </div>
+                <a href="#contact" class="hidden md:block bg-[var(--accent-primary)] text-white px-5 py-2 rounded-full hover:bg-red-600 transition-colors text-sm font-semibold cta-btn">Book Now</a>
+                <button id="mobile-menu-btn" class="md:hidden text-slate-800">
+                    <span class="text-2xl">&#9776;</span>
+                </button>
+            </nav>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+            <a href="#home" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-50">Home</a>
+            <a href="#destinations" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-50">Destinations</a>
+            <a href="#testimonials" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-50">Testimonials</a>
+            <a href="#planner" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-50">Planner</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-slate-600 hover:bg-slate-50">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home/Hero Section -->
+        <section id="home" class="h-screen min-h-[700px] flex items-center hero-bg-container">
+            <div class="hero-bg absolute inset-0"></div>
+            <div class="relative container mx-auto px-4 text-center">
+                <div class="bg-black/40 backdrop-blur-sm p-8 rounded-xl inline-block">
+                    <h1 class="font-display text-5xl md:text-7xl font-extrabold text-white">Your Journey Begins</h1>
+                    <p class="text-white/90 mt-4 text-lg max-w-2xl mx-auto">Discover breathtaking destinations and create unforgettable memories. We handle the details, you enjoy the adventure.</p>
+                    <a href="#destinations" class="mt-8 inline-block bg-[var(--accent-primary)] text-white px-10 py-4 rounded-full hover:bg-red-600 transition-colors text-lg font-semibold cta-btn">Explore Tours</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinations Section -->
+        <section id="destinations" class="py-20 md:py-28" style="background-color: var(--bg-secondary);">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-800">Top Destinations <span class="text-[var(--accent-primary)]">.</span></h2>
+                    <p class="mt-3 text-slate-600 max-w-xl mx-auto">Handpicked locations that promise a unique and enriching travel experience.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Destination Card 1: London -->
+                    <div class="destination-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-2xl" data-dest="london">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop" alt="Cityscape of London at night with Tower Bridge" class="w-full h-64 object-cover transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-slate-800 font-display">London, UK</h3>
+                            <p class="mt-2 text-[var(--text-light)]">A city where history meets modernity. Explore iconic landmarks and vibrant culture.</p>
+                            <span class="inline-block mt-4 text-[var(--accent-primary)] font-semibold group-hover:underline">View Details &rarr;</span>
+                        </div>
+                    </div>
+                    <!-- Destination Card 2: India -->
+                    <div class="destination-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-2xl" data-dest="india">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=2071&auto=format&fit=crop" alt="The Taj Mahal in India with its reflection in the water" class="w-full h-64 object-cover transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-slate-800 font-display">India</h3>
+                            <p class="mt-2 text-[var(--text-light)]">A land of diverse cultures, colors, and landscapes. A journey for the soul.</p>
+                            <span class="inline-block mt-4 text-[var(--accent-primary)] font-semibold group-hover:underline">View Details &rarr;</span>
+                        </div>
+                    </div>
+                    <!-- Destination Card 3: Indonesia -->
+                    <div class="destination-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-2xl" data-dest="indonesia">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1974&auto=format&fit=crop" alt="Beautiful beach scene in Indonesia" class="w-full h-64 object-cover transition-transform duration-500 ease-in-out">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-slate-800 font-display">Indonesia</h3>
+                            <p class="mt-2 text-[var(--text-light)]">An archipelago of stunning beaches, lush jungles, and volcanic wonders.</p>
+                            <span class="inline-block mt-4 text-[var(--accent-primary)] font-semibold group-hover:underline">View Details &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-28">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-800">Kind Words From Travelers <span class="text-[var(--accent-primary)]">.</span></h2>
+                    <p class="mt-3 text-slate-600 max-w-xl mx-auto">Real stories from our happy customers who explored the world with us.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <div class="testimonial-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--accent-secondary)] transition-all duration-300">
+                        <p class="text-[var(--text-light)] italic text-lg">"Explore Bliss made our dream vacation a reality. Every detail was perfectly planned. Highly recommended!"</p>
+                        <div class="flex items-center mt-6">
+                            <img src="https://placehold.co/48x48/e0e7ff/4338ca?text=A" alt="Alex Johnson" class="w-12 h-12 rounded-full object-cover ring-2 ring-[var(--accent-secondary)]">
+                            <div class="ml-4">
+                                <p class="font-semibold text-slate-800">Alex Johnson</p>
+                                <p class="text-sm text-slate-500">Traveled to London</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--accent-secondary)] transition-all duration-300">
+                        <p class="text-[var(--text-light)] italic text-lg">"An unforgettable trip to India! The culture, the food, the sights - all curated beautifully by the Explore Bliss team."</p>
+                        <div class="flex items-center mt-6">
+                            <img src="https://placehold.co/48x48/e0e7ff/4338ca?text=S" alt="Samantha Lee" class="w-12 h-12 rounded-full object-cover ring-2 ring-[var(--accent-secondary)]">
+                            <div class="ml-4">
+                                <p class="font-semibold text-slate-800">Samantha Lee</p>
+                                <p class="text-sm text-slate-500">Traveled to India</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--accent-secondary)] transition-all duration-300">
+                        <p class="text-[var(--text-light)] italic text-lg">"From the beaches of Bali to the temples, our trip to Indonesia was seamless and magical. Thank you, Explore Bliss!"</p>
+                        <div class="flex items-center mt-6">
+                            <img src="https://placehold.co/48x48/e0e7ff/4338ca?text=B" alt="Brian Smith" class="w-12 h-12 rounded-full object-cover ring-2 ring-[var(--accent-secondary)]">
+                            <div class="ml-4">
+                                <p class="font-semibold text-slate-800">Brian Smith</p>
+                                <p class="text-sm text-slate-500">Traveled to Indonesia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planner Section -->
+        <section id="planner" class="py-20 md:py-28" style="background-color: var(--bg-secondary);">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-800">Plan Your Trip <span class="text-[var(--accent-primary)]">.</span></h2>
+                    <p class="mt-3 text-slate-600 max-w-xl mx-auto">Organize your adventure with our handy tools.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <!-- Left Column: Budget & Tools -->
+                    <div class="space-y-12">
+                        <!-- Budget Calculator -->
+                        <div class="bg-white p-8 rounded-xl shadow-lg">
+                            <h3 class="text-2xl font-bold font-display text-slate-800 mb-6">Budget Calculator</h3>
+                            <form id="budget-form" class="space-y-4">
+                                <div>
+                                    <label for="budget-destination" class="block text-sm font-medium text-slate-700">Destination</label>
+                                    <select id="budget-destination" class="mt-1 block w-full p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0">
+                                        <option value="london">London, UK</option>
+                                        <option value="india">India</option>
+                                        <option value="indonesia">Indonesia</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="trip-duration" class="block text-sm font-medium text-slate-700">Trip Duration (days)</label>
+                                    <input type="number" id="trip-duration" value="7" min="1" class="mt-1 block w-full p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0">
+                                </div>
+                                <div>
+                                    <label for="travel-style" class="block text-sm font-medium text-slate-700">Travel Style</label>
+                                    <select id="travel-style" class="mt-1 block w-full p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0">
+                                        <option value="budget">Budget</option>
+                                        <option value="mid-range">Mid-range</option>
+                                        <option value="luxury">Luxury</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="w-full bg-[var(--accent-secondary)] text-white px-8 py-3 rounded-full hover:bg-teal-500 font-semibold cta-btn">Calculate & Plan</button>
+                                <div id="budget-result" class="text-center mt-4 text-lg font-semibold text-slate-800"></div>
+                            </form>
+                        </div>
+                        <!-- Currency Converter -->
+                        <div class="bg-white p-8 rounded-xl shadow-lg">
+                            <h3 class="text-2xl font-bold font-display text-slate-800 mb-6">Currency Converter</h3>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-5 gap-2 items-center">
+                                    <div class="col-span-2">
+                                        <label for="from-currency" class="block text-sm font-medium text-slate-500">From</label>
+                                        <select id="from-currency" class="mt-1 block w-full p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0"></select>
+                                    </div>
+                                    <div class="text-center text-xl pt-6">&rarr;</div>
+                                    <div class="col-span-2">
+                                        <label for="to-currency" class="block text-sm font-medium text-slate-500">To</label>
+                                        <select id="to-currency" class="mt-1 block w-full p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0"></select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="from-amount" class="block text-sm font-medium text-slate-500">Amount to Convert</label>
+                                    <input type="number" id="from-amount" value="100" class="mt-1 block w-full p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0">
+                                </div>
+                                <div id="currency-result" class="text-center pt-2 text-xl font-bold text-slate-800 text-[var(--accent-secondary)]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Column: To-Do List -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold font-display text-slate-800 mb-6">Pre-Travel Checklist</h3>
+                        <div class="flex gap-2 mb-4">
+                            <input type="text" id="todo-input" placeholder="e.g., Renew passport" class="flex-grow p-3 rounded-md bg-slate-100 border-transparent focus:border-slate-300 focus:bg-white focus:ring-0">
+                            <button id="add-todo-btn" class="bg-[var(--accent-primary)] text-white px-5 py-2 rounded-md hover:bg-red-600 font-semibold cta-btn">+</button>
+                        </div>
+                        <ul id="todo-list" class="space-y-2">
+                           <!-- JS will populate this from localStorage -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- Results Section: Weather & Itinerary -->
+                <div id="results-section" class="mt-12 grid grid-cols-1 md:grid-cols-5 gap-8 hidden">
+                    <div id="weather-section" class="md:col-span-2 bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold font-display text-slate-800 mb-6 text-center">5-Day Forecast</h3>
+                        <div id="weather-output" class="space-y-4"></div>
+                    </div>
+                    <div id="itinerary-section" class="md:col-span-3 bg-white p-8 rounded-xl shadow-lg">
+                         <h3 class="text-2xl font-bold font-display text-slate-800 mb-6 text-center">Sample Daily Itinerary</h3>
+                         <div id="itinerary-output" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-28 bg-slate-800 text-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold font-display">Ready for Your Next Adventure?</h2>
+                    <p class="mt-3 text-slate-300 max-w-xl mx-auto">Get in touch to plan your personalized journey or subscribe for travel inspiration.</p>
+                </div>
+                <div class="max-w-xl mx-auto">
+                    <form id="contact-form" class="bg-slate-700/50 p-8 rounded-xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="Your Name" class="w-full p-3 rounded-md bg-slate-600/50 text-white placeholder-slate-400 border border-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)] transition-all">
+                            <input type="email" placeholder="Your Email" class="w-full p-3 rounded-md bg-slate-600/50 text-white placeholder-slate-400 border border-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)] transition-all">
+                        </div>
+                        <textarea placeholder="Your Message..." rows="4" class="w-full mt-6 p-3 rounded-md bg-slate-600/50 text-white placeholder-slate-400 border border-slate-500 focus:outline-none focus:ring-2 focus:ring-[var(--accent-primary)] transition-all"></textarea>
+                        <button type="submit" class="w-full mt-6 bg-[var(--accent-primary)] text-white px-8 py-3 rounded-full hover:bg-red-600 font-semibold cta-btn">Send Message</button>
+                    </form>
+                    <div id="form-feedback" class="text-center mt-4 text-green-400"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Explore Bliss. All rights reserved.</p>
+            <p class="text-sm mt-2">Designed with passion for exploration.</p>
+        </div>
+    </footer>
+
+    <!-- Destination Modal -->
+    <div id="destination-modal" class="modal invisible opacity-0 fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+        <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+            <div class="relative">
+                <img id="modal-img" src="" alt="Destination" class="w-full h-64 md:h-80 object-cover rounded-t-lg">
+                <button id="modal-close-btn" class="absolute top-4 right-4 bg-white/70 text-slate-800 rounded-full p-2 hover:bg-white transition-colors">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            <div class="p-6 md:p-8">
+                <h3 id="modal-title" class="text-3xl md:text-4xl font-bold font-display text-slate-800"></h3>
+                <p id="modal-description" class="mt-4 text-slate-600 leading-relaxed"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- GLOBAL ELEMENTS ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            const modal = document.getElementById('destination-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const destinationCards = document.querySelectorAll('.destination-card');
+            const budgetForm = document.getElementById('budget-form');
+            const budgetResult = document.getElementById('budget-result');
+            const resultsSection = document.getElementById('results-section');
+            const itineraryOutput = document.getElementById('itinerary-output');
+            const weatherOutput = document.getElementById('weather-output');
+            const todoInput = document.getElementById('todo-input');
+            const addTodoBtn = document.getElementById('add-todo-btn');
+            const todoList = document.getElementById('todo-list');
+            const fromAmountInput = document.getElementById('from-amount');
+            const fromCurrencySelect = document.getElementById('from-currency');
+            const toCurrencySelect = document.getElementById('to-currency');
+            const currencyResult = document.getElementById('currency-result');
+            const budgetDestinationSelect = document.getElementById('budget-destination');
+            const contactForm = document.getElementById('contact-form');
+            const formFeedback = document.getElementById('form-feedback');
+
+            // --- DATA ---
+            const destinationData = {
+                london: {
+                    title: "London, United Kingdom",
+                    img: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop",
+                    description: "London is a tapestry of history, culture, and innovation...",
+                    weather: [
+                        { day: 'Mon', icon: 'fa-cloud-sun', temp: '18°C' },
+                        { day: 'Tue', icon: 'fa-cloud-showers-heavy', temp: '15°C' },
+                        { day: 'Wed', icon: 'fa-sun', temp: '20°C' },
+                        { day: 'Thu', icon: 'fa-cloud', temp: '17°C' },
+                        { day: 'Fri', icon: 'fa-cloud-sun', temp: '19°C' }
+                    ],
+                    itinerary: [
+                        "Arrive, check into your hotel, and take a stroll along the South Bank to see the London Eye and Big Ben.",
+                        "Visit the Tower of London to see the Crown Jewels, then walk across the iconic Tower Bridge.",
+                        "Explore the British Museum and the vibrant Covent Garden for shopping and street performers.",
+                        "Witness the Changing of the Guard at Buckingham Palace and relax in Hyde Park.",
+                        "Immerse yourself in art at the Tate Modern and Shakespeare's Globe.",
+                        "Discover the trendy neighborhoods of Shoreditch and Notting Hill.",
+                        "Take a day trip to Windsor Castle or the historic city of Bath."
+                    ]
+                },
+                india: {
+                    title: "Incredible India",
+                    img: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=2071&auto=format&fit=crop",
+                    description: "India is a vast and vibrant country offering a kaleidoscope of experiences...",
+                    weather: [
+                        { day: 'Mon', icon: 'fa-sun', temp: '35°C' },
+                        { day: 'Tue', icon: 'fa-sun', temp: '36°C' },
+                        { day: 'Wed', icon: 'fa-cloud-sun', temp: '34°C' },
+                        { day: 'Thu', icon: 'fa-bolt', temp: '32°C' },
+                        { day: 'Fri', icon: 'fa-sun', temp: '35°C' }
+                    ],
+                    itinerary: [
+                        "Arrive in Delhi, check in, and explore the bustling markets of Chandni Chowk.",
+                        "Visit historical sites in Delhi like Humayun's Tomb and Qutub Minar.",
+                        "Travel to Agra and witness the breathtaking beauty of the Taj Mahal at sunset.",
+                        "Explore Agra Fort and the 'Baby Taj' (Tomb of I'timād-ud-Daulah).",
+                        "Travel to Jaipur, the Pink City, and visit the City Palace.",
+                        "Explore the magnificent Amber Fort and the Hawa Mahal (Palace of Winds).",
+                        "Enjoy local Rajasthani cuisine and shop for traditional crafts."
+                    ]
+                },
+                indonesia: {
+                    title: "Enchanting Indonesia",
+                    img: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1974&auto=format&fit=crop",
+                    description: "Indonesia, the world's largest island country, is a paradise of natural wonders...",
+                    weather: [
+                        { day: 'Mon', icon: 'fa-cloud-sun-rain', temp: '29°C' },
+                        { day: 'Tue', icon: 'fa-cloud-sun', temp: '30°C' },
+                        { day: 'Wed', icon: 'fa-sun', temp: '31°C' },
+                        { day: 'Thu', icon: 'fa-cloud-sun', temp: '30°C' },
+                        { day: 'Fri', icon: 'fa-bolt-lightning', temp: '28°C' }
+                    ],
+                    itinerary: [
+                        "Arrive in Bali, check into your hotel in Seminyak, and enjoy a sunset on the beach.",
+                        "Explore the cultural heart of Ubud, visiting the Sacred Monkey Forest and local art markets.",
+                        "Visit the Tegalalang Rice Terraces and the Tirta Empul Temple for a holy water blessing.",
+                        "Hike to the top of Mount Batur for a spectacular sunrise view over the volcano.",
+                        "Take a fast boat to the Gili Islands for snorkeling or diving in crystal-clear waters.",
+                        "Relax on the white-sand beaches of Gili Trawangan or Gili Air.",
+                        "Return to Bali for a farewell seafood dinner on the beach in Jimbaran."
+                    ]
+                }
+            };
+            
+            const currencyData = {
+                'USD': { name: 'United States Dollar', rate: 1, symbol: '$' },
+                'EUR': { name: 'Euro', rate: 0.92, symbol: '€' },
+                'JPY': { name: 'Japanese Yen', rate: 157, symbol: '¥' },
+                'GBP': { name: 'British Pound', rate: 0.79, symbol: '£' },
+                'AUD': { name: 'Australian Dollar', rate: 1.5, symbol: 'A$' },
+                'CAD': { name: 'Canadian Dollar', rate: 1.37, symbol: 'C$' },
+                'CHF': { name: 'Swiss Franc', rate: 0.9, symbol: 'CHF' },
+                'CNY': { name: 'Chinese Yuan', rate: 7.25, symbol: '¥' },
+                'INR': { name: 'Indian Rupee', rate: 83.5, symbol: '₹' },
+                'IDR': { name: 'Indonesian Rupiah', rate: 16250, symbol: 'Rp' },
+                'BRL': { name: 'Brazilian Real', rate: 5.35, symbol: 'R$' },
+                'RUB': { name: 'Russian Ruble', rate: 90, symbol: '₽' },
+                'ZAR': { name: 'South African Rand', rate: 18.7, symbol: 'R' }
+            };
+            
+            const dailyCosts = {
+                london: { budget: 100, 'mid-range': 250, luxury: 500 },
+                india: { budget: 40, 'mid-range': 100, luxury: 250 },
+                indonesia: { budget: 50, 'mid-range': 120, luxury: 300 }
+            };
+
+            // --- NAVIGATION ---
+            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+            window.addEventListener('scroll', () => {
+                let current = 'home';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('nav-active');
+                    }
+                });
+            });
+
+            // --- DESTINATION MODAL ---
+            const openModal = (destKey) => {
+                const data = destinationData[destKey];
+                document.getElementById('modal-img').src = data.img;
+                document.getElementById('modal-title').textContent = data.title;
+                document.getElementById('modal-description').textContent = data.description;
+                modal.classList.remove('invisible', 'opacity-0');
+                modal.classList.add('modal-active');
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('modal-active');
+                setTimeout(() => modal.classList.add('invisible', 'opacity-0'), 300);
+            };
+
+            destinationCards.forEach(card => card.addEventListener('click', () => openModal(card.dataset.dest)));
+            modalCloseBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => (e.target === modal) && closeModal());
+            
+            // --- PLANNER LOGIC ---
+            budgetForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const destination = budgetDestinationSelect.value;
+                const duration = parseInt(document.getElementById('trip-duration').value, 10);
+                const style = document.getElementById('travel-style').value;
+                
+                const data = destinationData[destination];
+
+                // Calculate and display budget
+                const totalCost = dailyCosts[destination][style] * duration;
+                budgetResult.textContent = `Estimated Budget: $${totalCost.toLocaleString()}`;
+
+                // Generate and display itinerary
+                itineraryOutput.innerHTML = ''; // Clear previous
+                for (let i = 0; i < duration; i++) {
+                    const dayPlan = data.itinerary[i % data.itinerary.length];
+                    itineraryOutput.innerHTML += `<div class="p-4 bg-slate-50 rounded-lg"><p><strong class="text-[var(--accent-secondary)]">Day ${i + 1}:</strong> ${dayPlan}</p></div>`;
+                }
+                
+                // Generate and display weather
+                weatherOutput.innerHTML = ''; // Clear previous
+                data.weather.forEach(day => {
+                    weatherOutput.innerHTML += `
+                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                            <span class="font-semibold w-1/4">${day.day}</span>
+                            <span class="weather-icon w-1/2 text-center"><i class="fas ${day.icon}"></i></span>
+                            <span class="font-semibold w-1/4 text-right">${day.temp}</span>
+                        </div>
+                    `;
+                });
+
+                resultsSection.classList.remove('hidden');
+            });
+            
+            // --- CURRENCY CONVERTER ---
+            const populateCurrencies = () => {
+                Object.keys(currencyData).forEach(code => {
+                    fromCurrencySelect.innerHTML += `<option value="${code}">${code} - ${currencyData[code].name}</option>`;
+                    toCurrencySelect.innerHTML += `<option value="${code}">${code} - ${currencyData[code].name}</option>`;
+                });
+            };
+
+            const convertCurrency = () => {
+                const fromCode = fromCurrencySelect.value;
+                const toCode = toCurrencySelect.value;
+                const amount = parseFloat(fromAmountInput.value) || 0;
+
+                const amountInUSD = amount / currencyData[fromCode].rate;
+                const convertedAmount = amountInUSD * currencyData[toCode].rate;
+                
+                currencyResult.textContent = `${convertedAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} ${currencyData[toCode].symbol}`;
+            };
+
+            populateCurrencies();
+            fromCurrencySelect.value = 'USD';
+            toCurrencySelect.value = 'GBP'; // Default to London's currency
+            convertCurrency(); // Initial call
+
+            [fromAmountInput, fromCurrencySelect, toCurrencySelect].forEach(el => el.addEventListener('input', convertCurrency));
+            
+            budgetDestinationSelect.addEventListener('change', () => {
+                const destCurrencyMap = { london: 'GBP', india: 'INR', indonesia: 'IDR' };
+                toCurrencySelect.value = destCurrencyMap[budgetDestinationSelect.value];
+                convertCurrency();
+            });
+
+
+            // --- TO-DO LIST (WITH LOCALSTORAGE) ---
+            let tasks = JSON.parse(localStorage.getItem('Explore BlissTasks')) || [];
+
+            const saveTasks = () => {
+                localStorage.setItem('Explore BlissTasks', JSON.stringify(tasks));
+            };
+
+            const renderTasks = () => {
+                todoList.innerHTML = '';
+                tasks.forEach((task, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'todo-item flex justify-between items-center p-3 bg-slate-50 rounded-md';
+                    listItem.dataset.index = index;
+                    listItem.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 rounded text-[var(--accent-secondary)] focus:ring-0" ${task.completed ? 'checked' : ''}/>
+                            <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
+                        </div>
+                        <span class="todo-delete-btn font-bold text-slate-400 text-xl cursor-pointer">&times;</span>
+                    `;
+                    todoList.appendChild(listItem);
+                });
+            };
+
+            const addTask = () => {
+                const taskText = todoInput.value.trim();
+                if (taskText === '') return;
+                tasks.push({ text: taskText, completed: false });
+                todoInput.value = '';
+                saveTasks();
+                renderTasks();
+            };
+
+            addTodoBtn.addEventListener('click', addTask);
+            todoInput.addEventListener('keypress', (e) => (e.key === 'Enter') && (e.preventDefault(), addTask()));
+
+            todoList.addEventListener('click', (e) => {
+                const listItem = e.target.closest('li');
+                if (!listItem) return;
+                const index = parseInt(listItem.dataset.index, 10);
+
+                if (e.target.classList.contains('todo-delete-btn')) {
+                    tasks.splice(index, 1);
+                }
+                if (e.target.type === 'checkbox') {
+                    tasks[index].completed = !tasks[index].completed;
+                }
+                saveTasks();
+                renderTasks();
+            });
+
+            renderTasks(); // Initial render on page load
+
+            // --- CONTACT FORM ---
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                formFeedback.textContent = "Thank you! Your message has been sent.";
+                contactForm.reset();
+                setTimeout(() => { formFeedback.textContent = ""; }, 4000);
+            });
+        });
+    </script>
+</body>
+</html>
